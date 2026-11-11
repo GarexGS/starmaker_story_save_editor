@@ -1,0 +1,947 @@
+{
+  "... Or use Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "... Or use Josef"
+  },
+  "A Quest where you need to complete 3 things in order!": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "A Quest where you need to complete 3 things in order!"
+  },
+  "A sequence of Tasks": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "A sequence of Tasks"
+  },
+  "A very simple Quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "A very simple Quest"
+  },
+  "Adrian-Mallquest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Adrian-Mallquest"
+  },
+  "Adrian-mallquest-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Adrian-mallquest-done"
+  },
+  "Assist Sofia in her case against Mario.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Assist Sofia in her case against Mario."
+  },
+  "Astrid Quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Astrid Quest"
+  },
+  "Astrid-VampireQuestDone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Astrid-VampireQuestDone"
+  },
+  "Astrid-photoqueststart": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Astrid-photoqueststart"
+  },
+  "Bishop (Mario)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Bishop (Mario)"
+  },
+  "Challenge request": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Challenge request"
+  },
+  "CharlottePhoenixQuest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "CharlottePhoenixQuest"
+  },
+  "Check back in with Sofia.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Check back in with Sofia."
+  },
+  "Complete this Task to complete the Quest5": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Complete this Task to complete the Quest5"
+  },
+  "Corrupt Emma.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Corrupt Emma."
+  },
+  "Cryptids (Emma)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Cryptids (Emma)"
+  },
+  "Emma Larson": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Emma Larson"
+  },
+  "Emma asked for help investigating cryptid sightings around PeakCity. She": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Emma asked for help investigating cryptid sightings around PeakCity. She"
+  },
+  "Emma-Betrays-Mario-Route": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Emma-Betrays-Mario-Route"
+  },
+  "Find a way to deal with Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Find a way to deal with Josef"
+  },
+  "Gain Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Gain Josef"
+  },
+  "GameCreator.Runtime.Quests": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "GameCreator.Runtime.Quests"
+  },
+  "Help Mario compare files": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Help Mario compare files"
+  },
+  "Help request": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Help request"
+  },
+  "Holiday-VarQuest-Onez": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Holiday-VarQuest-Onez"
+  },
+  "Holiday-VarQuest-Two|": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Holiday-VarQuest-Two|"
+  },
+  "I finally have Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "I finally have Josef"
+  },
+  "Join Emma to look for signs of Bigfoot.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Join Emma to look for signs of Bigfoot."
+  },
+  "Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Josef"
+  },
+  "Josef is drowning in debt, and it": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Josef is drowning in debt, and it"
+  },
+  "Josef-Kitchen-Outfit-What": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Josef-Kitchen-Outfit-What"
+  },
+  "Justice (Sofia)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Justice (Sofia)"
+  },
+  "Katarina-L-progress": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Katarina-L-progress"
+  },
+  "Katarina-Left": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Katarina-Left"
+  },
+  "Let Josef know I": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Let Josef know I"
+  },
+  "MINIQUEST-ACTIVEp": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "MINIQUEST-ACTIVEp"
+  },
+  "Mario di Luca, the former governor of PeakCity, made me an offer. He": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario di Luca, the former governor of PeakCity, made me an offer. He"
+  },
+  "Mario-About-To-Be-Arrested": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-About-To-Be-Arrested"
+  },
+  "Mario-In-Prison": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-In-Prison"
+  },
+  "Mario-No-More-Talk": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-No-More-Talk"
+  },
+  "Mario-Plan-Agreed": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-Plan-Agreed"
+  },
+  "Mario-Plan-Declined": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-Plan-Declined"
+  },
+  "Mario-Plan-revealed": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-Plan-revealed"
+  },
+  "Mario-dead": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mario-dead"
+  },
+  "Meet Emma in the city on Tuesday.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Meet Emma in the city on Tuesday."
+  },
+  "Meet Josef at the door each Friday.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Meet Josef at the door each Friday."
+  },
+  "Meet Sofia at the gas station on Friday.y": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Meet Sofia at the gas station on Friday.y"
+  },
+  "Miniquests": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Miniquests"
+  },
+  "Moment of Truth (Josef)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Moment of Truth (Josef)"
+  },
+  "Mura Quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Mura Quest"
+  },
+  "Or betray Sofia and warn Mario instead.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Or betray Sofia and warn Mario instead."
+  },
+  "Or find a way to push Josef out.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Or find a way to push Josef out."
+  },
+  "Pick up beer before talking to Josef.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Pick up beer before talking to Josef."
+  },
+  "Push Katarina past her limits.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Push Katarina past her limits."
+  },
+  "Quest Escort,": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Escort,"
+  },
+  "Quest Investigation": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Investigation"
+  },
+  "Quest Kill 5 Boars": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Kill 5 Boars"
+  },
+  "Quest Pick Choice": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Pick Choice"
+  },
+  "Quest Sequence": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Sequence"
+  },
+  "Quest Simple,": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest Simple,"
+  },
+  "Quest_Icon": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quest_Icon"
+  },
+  "Quests": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Quests"
+  },
+  "QuestsRepository": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "QuestsRepository"
+  },
+  "Request Text": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Request Text"
+  },
+  "Scentedcandlesquest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Scentedcandlesquest"
+  },
+  "Search for proof that can be used against Mario.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Search for proof that can be used against Mario."
+  },
+  "Sofia, one of the few honest cops in Peak City, wants my help taking down Mario. She": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia, one of the few honest cops in Peak City, wants my help taking down Mario. She"
+  },
+  "Sofia-Cop-RevealS": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia-Cop-RevealS"
+  },
+  "Sofia-Path-Accepted": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia-Path-Accepted"
+  },
+  "Sofia-Path-Declined": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia-Path-Declined"
+  },
+  "Sofia-Sharing-Active": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia-Sharing-Active"
+  },
+  "Sofia-Was-That-necessary": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Sofia-Was-That-necessary"
+  },
+  "Support Josef in paying off what he owes.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Support Josef in paying off what he owes."
+  },
+  "Tasha-questone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Tasha-questone"
+  },
+  "Task": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Task"
+  },
+  "Task_Custom_Icon_1": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Task_Custom_Icon_1"
+  },
+  "Task_Icon": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Task_Icon"
+  },
+  "TasksTree": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "TasksTree"
+  },
+  "The Moment of Truth (Josef)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "The Moment of Truth (Josef)"
+  },
+  "The Task4": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "The Task4"
+  },
+  "The first Task": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "The first Task"
+  },
+  "The second Task": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "The second Task"
+  },
+  "The third and last Task": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "The third and last Task"
+  },
+  "This Quest is completed when you choose a path, and the other one is blocked": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "This Quest is completed when you choose a path, and the other one is blocked"
+  },
+  "This is a very simple quest with just a single Task": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "This is a very simple quest with just a single Task"
+  },
+  "This is quite the hard task to complete...": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "This is quite the hard task to complete..."
+  },
+  "ValueQuest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "ValueQuest"
+  },
+  "Vanessa Quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Vanessa Quest"
+  },
+  "Visit Mario once a week.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Visit Mario once a week."
+  },
+  "Visit Mario.": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Visit Mario."
+  },
+  "Weirder Things (Emma)": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "Weirder Things (Emma)"
+  },
+  "adrian-josef-fight": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "adrian-josef-fight"
+  },
+  "agreed-to-bang-katarina": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "agreed-to-bang-katarina"
+  },
+  "bafa-cowprint-sofia": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-cowprint-sofia"
+  },
+  "bafa-cowprintoutfit-emma": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-cowprintoutfit-emma"
+  },
+  "bafa-emmaaccepted": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-emmaaccepted"
+  },
+  "bafa-katarinaaccepted": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-katarinaaccepted"
+  },
+  "bafa-sofia-firsttimemilked": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-sofia-firsttimemilked"
+  },
+  "bafa-sofiaaccepted": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "bafa-sofiaaccepted"
+  },
+  "cd-milked-emma": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "cd-milked-emma"
+  },
+  "celeste-quest-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "celeste-quest-done"
+  },
+  "cheeseburger-quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "cheeseburger-quest"
+  },
+  "debt-paid-off-talk-incoming-d-mario": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "debt-paid-off-talk-incoming-d-mario"
+  },
+  "emma": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma"
+  },
+  "emma-alicescenedone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-alicescenedone"
+  },
+  "emma-bigfootscenedone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-bigfootscenedone"
+  },
+  "emma-c-progress": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-c-progress"
+  },
+  "emma-corrupted": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-corrupted"
+  },
+  "emma-cryptidhuntactive": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-cryptidhuntactive"
+  },
+  "emma-cryptidhuntquest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-cryptidhuntquest"
+  },
+  "emma-cryptidhuntquestdone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-cryptidhuntquestdone"
+  },
+  "emma-first-meeting": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-first-meeting"
+  },
+  "emma-first-time-sauna": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-first-time-sauna"
+  },
+  "emma-hunttypenumber": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-hunttypenumber"
+  },
+  "emma-katarina-beach": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-katarina-beach"
+  },
+  "emma-katarina-locations": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-katarina-locations"
+  },
+  "emma-katarina-zuri": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-katarina-zuri"
+  },
+  "emma-lizagscenedone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-lizagscenedone"
+  },
+  "emma-marioarrested-aftertalk25": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-marioarrested-aftertalk25"
+  },
+  "emma-player-friends": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-player-friends"
+  },
+  "emma-sex-first-time": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-sex-first-time"
+  },
+  "emma-sexpositiveslutmode": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-sexpositiveslutmode"
+  },
+  "emma-storyline": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-storyline"
+  },
+  "emma-week-cooldown": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emma-week-cooldown"
+  },
+  "emmakatthreesome-one-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "emmakatthreesome-one-done"
+  },
+  "frankmoneyrequest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "frankmoneyrequest"
+  },
+  "gabriel-questline-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "gabriel-questline-done"
+  },
+  "hikepathoptalkdone-josefg": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "hikepathoptalkdone-josefg"
+  },
+  "himari-homequest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "himari-homequest"
+  },
+  "himari-questdone": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "himari-questdone"
+  },
+  "himari-questfailed": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "himari-questfailed"
+  },
+  "holiday-josefbd": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "holiday-josefbd"
+  },
+  "josef-cinema8": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "josef-cinema8"
+  },
+  "josef-is-gone-talk-done-adrian": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "josef-is-gone-talk-done-adrian"
+  },
+  "josef-is-gone-talk-done-anna": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "josef-is-gone-talk-done-anna"
+  },
+  "josef-smoke-catched": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "josef-smoke-catched"
+  },
+  "josefbeergiven2025": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "josefbeergiven2025"
+  },
+  "katarina": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina"
+  },
+  "katarina-banged": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-banged"
+  },
+  "katarina-daily-cooldown": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-daily-cooldown"
+  },
+  "katarina-first-meeting": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-first-meeting"
+  },
+  "katarina-marioarrested-aftertalk25": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-marioarrested-aftertalk25"
+  },
+  "katarina-player-friends": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-player-friends"
+  },
+  "katarina-saw-them": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-saw-them"
+  },
+  "katarina-storyline": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarina-storyline"
+  },
+  "katarinamallcooldown": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarinamallcooldown"
+  },
+  "katarinawaitinginrestroom": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "katarinawaitinginrestroom"
+  },
+  "kirbyrobertquest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "kirbyrobertquest"
+  },
+  "mario": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario"
+  },
+  "mario-emma-incoming": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-emma-incoming"
+  },
+  "mario-plan-completed": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-plan-completed"
+  },
+  "mario-storyline": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-storyline"
+  },
+  "mario-villa-first-meeting": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-villa-first-meeting"
+  },
+  "mario-villa-unlocked": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-villa-unlocked"
+  },
+  "mario-week-cooldown": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mario-week-cooldown"
+  },
+  "mariobonushappy": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mariobonushappy"
+  },
+  "mariogstroominc": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "mariogstroominc"
+  },
+  "marioguestroomkey": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "marioguestroomkey"
+  },
+  "milk-emma": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "milk-emma"
+  },
+  "milk-katarina": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "milk-katarina"
+  },
+  "miniquest-anna-tootight": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "miniquest-anna-tootight"
+  },
+  "pcjosef-drankameliamilk": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "pcjosef-drankameliamilk"
+  },
+  "quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "quest"
+  },
+  "quests.general": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "quests.general"
+  },
+  "s page to the next level. The question is... can we afford not to go?": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "s page to the next level. The question is... can we afford not to go?"
+  },
+  "sofia": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia"
+  },
+  "sofia-at-gasstation": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-at-gasstation"
+  },
+  "sofia-at-villa": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-at-villa"
+  },
+  "sofia-first-meeting": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-first-meeting"
+  },
+  "sofia-gasstation-first-talk": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-gasstation-first-talk"
+  },
+  "sofia-kidnapped": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-kidnapped"
+  },
+  "sofia-pub-talk-cooldown-week": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-pub-talk-cooldown-week"
+  },
+  "sofia-romance-path": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-romance-path"
+  },
+  "sofia-saved": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-saved"
+  },
+  "sofia-storyline": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-storyline"
+  },
+  "sofia-taken-by-mob": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-taken-by-mob"
+  },
+  "sofia-thank-you-talk-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-thank-you-talk-done"
+  },
+  "sofia-titfuck-done": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofia-titfuck-done"
+  },
+  "sofiahome-unlocked": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofiahome-unlocked"
+  },
+  "sofiakidnapthanks": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofiakidnapthanks"
+  },
+  "sofiapassengersceneinc": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofiapassengersceneinc"
+  },
+  "sofiaslv-firsttime": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "sofiaslv-firsttime"
+  },
+  "t forget who she is... Josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "t forget who she is... Josef"
+  },
+  "tasha-jasper-quest": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "tasha-jasper-quest"
+  },
+  "tasha-quest-done-": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "tasha-quest-done-"
+  },
+  "totemmap-unlocked": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "totemmap-unlocked"
+  },
+  "wedding-talk-done-josef": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "wedding-talk-done-josef"
+  },
+  "weekly-emmacryptidhuntcd": {
+    "quest_hash": null,
+    "task_ids": [],
+    "description": "weekly-emmacryptidhuntcd"
+  }
+}

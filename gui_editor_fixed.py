@@ -246,7 +246,6 @@ class SaveEditorGUI:
                 quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
                 quest_state_str = quest_combo.get()
                 quest_states[qdata["guid"]] = quest_state_str
-            
             modified = False
             task_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
             quest_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
@@ -274,24 +273,17 @@ class SaveEditorGUI:
                                 m_tasks["m_Keys"] = keys
                                 m_tasks["m_Values"] = values
                                 # Update quest state from quest_states
-                                quest_state = quest_states.get(guid)
-                                if quest_state is not None:
-                                    quest_state_int = {"Inactiva": 0, "Activa": 1, "Completada": 2}.get(quest_state, 1)
-                                    # Find the corresponding entry in m_Quests
-                                    inner = json.loads(entry["m_Value"])
-                                    refs = inner.get("references", {}).get("RefIds", [])
-                                    for ref in refs:
-                                        if ref.get("type", {}).get("class") == "TokenJournal":
-                                            tj = ref.get("data", {})
-                                            m_quests = tj.get("m_Quests", {})
-                                            if isinstance(m_quests, dict) and "m_Keys" in m_quests:
-                                                mq_keys = m_quests["m_Keys"]
-                                                mq_vals = m_quests["m_Values"]
-                                                for i, k in enumerate(mq_keys):
-                                                    if k.get("m_String") == entry["m_Key"] and i < len(mq_vals):
-                                                        mq_vals[i]["m_State"] = quest_state_int
-                                                        modified = True
-                                                entry["m_Value"] = json.dumps(inner)
+                                if isinstance(m_quests, dict) and "m_Keys" in m_quests:
+                                    mq_keys = m_quests["m_Keys"]
+                                    mq_vals = m_quests["m_Values"]
+                                    for i, k in enumerate(mq_keys):
+                                        quest_guid = k.get("m_String")
+                                        quest_state_str = quest_states.get(quest_guid)
+                                        if quest_state_str is not None and i < len(mq_vals):
+                                            quest_state_int = {"Inactiva": 0, "Activa": 1, "Completada": 2}.get(quest_state_str, 1)
+                                            mq_vals[i]["m_State"] = quest_state_int
+                                            modified = True
+                                    entry["m_Value"] = json.dumps(inner)
                                 break
                                 entry["m_Value"] = json.dumps(inner)
             

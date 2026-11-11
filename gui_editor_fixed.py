@@ -173,7 +173,7 @@ class SaveEditorGUI:
             quest_state_var = tk.StringVar(value=quest_state_str)
             quest_combo = ctk.CTkComboBox(quest_frame, values=["Inactiva", "Activa", "Completada"], variable=quest_state_var, width=150)
             quest_combo.pack(side="right")
-            quest_combo.bind("<<ComboboxSelected>>", lambda e, sv=quest_state_var: self._on_quest_change(quest_name, sv))
+            quest_combo.bind("<<ComboboxSelected>>", lambda e, sv=quest_state_var, guid=guid: self._on_quest_change(guid, sv))
             
             # Crear frame para tareas
             task_frame = ctk.CTkFrame(master=quest_frame, fg_color="transparent")
@@ -206,6 +206,7 @@ class SaveEditorGUI:
                 "state_var": tk.StringVar(value=quest_state_str),
                 "task_frames": task_frame,
                 "task_vars": task_state_var,
+                "guid": guid,
             }
     
     def _get_tasks_for_quest(self, guid):
@@ -220,11 +221,11 @@ class SaveEditorGUI:
         new_state = state_map.get(var.get(), 1)
         self.status_label.configure(text=f"📝 Tarea {task_id} → {var.get()}")
 
-    def _on_quest_change(self, quest_name, var):
+    def _on_quest_change(self, quest_guid, var):
         """Manejador de cambio de estado de quest."""
         state_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
         new_state = state_map.get(var.get(), 1)
-        self.status_label.configure(text=f"📋 Quest {quest_name} → {var.get()}")
+        self.status_label.configure(text=f"📋 Quest {quest_guid} → {var.get()}")
 
     def _save_changes(self):
         """Guardar cambios."""
@@ -241,10 +242,10 @@ class SaveEditorGUI:
                 for task_id, var in task_vars.items():
                     task_combos[task_id] = var
                 # Capture quest state from the quest combo
-                quest_frame = qdata["frame"]
-                quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
-                quest_state_str = quest_combo.get()
-                quest_states[quest_name] = quest_state_str
+                            quest_frame = qdata["frame"]
+                            quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
+                            quest_state_str = quest_combo.get()
+                            quest_states[guid] = quest_state_str
             
             modified = False
             task_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
@@ -273,7 +274,7 @@ class SaveEditorGUI:
                                 m_tasks["m_Keys"] = keys
                                 m_tasks["m_Values"] = values
                                 # Update quest state from quest_states
-                                quest_state = quest_states.get(entry["m_Key"])
+                                quest_state = quest_states.get(guid)
                                 if quest_state is not None:
                                     quest_state_int = {"Inactiva": 0, "Activa": 1, "Completada": 2}.get(quest_state, 1)
                                     # Find the corresponding entry in m_Quests

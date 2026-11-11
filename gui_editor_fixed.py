@@ -38,8 +38,8 @@ class SaveEditorGUI:
         self.root.title("🎮 Starmaker Story Save Editor")
         self.root.geometry("1200x800")
         
-        self.save_path = str(DEFAULT_SAVE)
-        self.save_path_var = ctk.StringVar(value=self.save_path)
+        self.save_path = ""
+        self.save_path_var = ctk.StringVar(value="")
         self.save_backup_path = ""
         self.quests_data = []
         self.tasks_data = {}
@@ -47,7 +47,7 @@ class SaveEditorGUI:
         
         # Crear widgets
         self._setup_widgets()
-        self._load_data()
+        # No cargar datos al inicio - esperar a que el usuario seleccione archivo
         self.root.mainloop()
     
     def _setup_widgets(self):
@@ -93,7 +93,11 @@ class SaveEditorGUI:
     def _browse_save(self):
         filepath = ctk.filedialog.askopenfilename(
             title="Seleccionar archivo de save",
-            filetypes=[("JSON", "*.json"), ("Todos los archivos", "*.*")]
+            filetypes=[
+                ("JSON files", "*.json"),
+                ("GZIP files", "*.gz"),
+                ("Todos los archivos", "*.*")
+            ]
         )
         if filepath:
             self.save_path = filepath
@@ -101,6 +105,9 @@ class SaveEditorGUI:
             self._load_data()
     
     def _load_data(self):
+        if not self.save_path:
+            messagebox.showwarning("Info", "Selecciona un archivo con Examinar")
+            return
         try:
             save_data = self._load_save(self.save_path)
             

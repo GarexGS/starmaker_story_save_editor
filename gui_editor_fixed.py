@@ -272,6 +272,8 @@ class SaveEditorGUI:
                                             modified = True
                                 m_tasks["m_Keys"] = keys
                                 m_tasks["m_Values"] = values
+                                # Obtener m_Quests desde el tokenjournal
+                                m_quests = tj.get("m_Quests", {})
                                 # Update quest state from quest_states
                                 if isinstance(m_quests, dict) and "m_Keys" in m_quests:
                                     mq_keys = m_quests["m_Keys"]

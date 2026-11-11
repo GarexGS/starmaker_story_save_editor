@@ -3,3 +3,4 @@ game/
 __pycache__/
 *.pyc
 *.pyo
+saves/

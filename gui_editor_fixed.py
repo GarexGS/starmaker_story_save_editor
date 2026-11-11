@@ -39,6 +39,7 @@ class SaveEditorGUI:
         self.root.geometry("1200x800")
         
         self.save_path = str(DEFAULT_SAVE)
+        self.save_path_var = ctk.StringVar(value=self.save_path)
         self.save_backup_path = ""
         self.quests_data = []
         self.tasks_data = {}
@@ -86,7 +87,6 @@ class SaveEditorGUI:
         self.status_label.grid(row=0, column=2, padx=10, pady=10, sticky="e")
         
         # Variables
-        self.save_path_var = ctk.StringVar(value=self.save_path)
         self.tasks_vars = {}
         self.task_widgets_map = {}
     

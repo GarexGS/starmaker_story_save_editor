@@ -217,11 +217,6 @@ class SaveEditorGUI:
                 messagebox.showerror("Error", "No se pudo cargar el save")
                 return
             
-            task_vars = {}
-            for quest_name, qdata in self.quest_frames.items():
-                task_vars[qdata["task_vars"]]
-            
-            # Aplicar cambios a los tasks
             task_combos = {}
             for quest_name, qdata in self.quest_frames.items():
                 task_vars = qdata["task_vars"]

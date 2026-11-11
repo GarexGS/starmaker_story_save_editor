@@ -260,9 +260,16 @@ class SaveEditorGUI:
             # Guardar
             with open(self.save_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
-            
-            # Comprimir a .gz solo una vez, usando la ruta original + .gz
-            gz_path = self.save_path + ".gz"
+
+            # Comprimir a .gz solo una vez, normalizando la extensión
+            from pathlib import Path
+            p = Path(self.save_path)
+            # Si ya termina en .gz o .GZ, quitarla para evitar doble extensión
+            if p.suffix.lower() == ".gz":
+                gz_path = str(p.with_suffix("")) + ".gz"
+            else:
+                gz_path = str(p) + ".gz"
+
             with open(self.save_path, "rb") as f_in:
                 with gzip.open(gz_path, "wb") as f_out:
                     f_out.write(f_in.read())

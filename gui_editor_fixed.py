@@ -253,28 +253,29 @@ class SaveEditorGUI:
                 messagebox.showinfo("Info", "No se detectaron cambios")
                 return
             
-            # Backup
+            # Backup del archivo original
             backup_path = self.save_path + ".backup"
             shutil.copy2(self.save_path, backup_path)
             
-            # Guardar
-            with open(self.save_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, indent=2, ensure_ascii=False)
-
-            # Comprimir a .gz solo una vez, normalizando la extensión
+            # Guardar como archivo .edited.json (no sobrescribir el original del juego)
             from pathlib import Path
             p = Path(self.save_path)
-            # Si ya termina en .gz o .GZ, quitarla para evitar doble extensión
-            if p.suffix.lower() == ".gz":
-                gz_path = str(p.with_suffix("")) + ".gz"
+            # Nombre base: quitar extensión si existe (.json, .gz, .GZ)
+            if p.suffix:
+                edited_path = str(p.with_suffix("")) + ".edited.json"
             else:
-                gz_path = str(p) + ".gz"
-
-            with open(self.save_path, "rb") as f_in:
+                edited_path = str(p) + ".edited.json"
+            
+            with open(edited_path, "w", encoding="utf-8") as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+            
+            # Crear versión comprimida .edited.gz
+            gz_path = edited_path.replace(".json", ".gz")
+            with open(edited_path, "rb") as f_in:
                 with gzip.open(gz_path, "wb") as f_out:
                     f_out.write(f_in.read())
             
-            messagebox.showinfo("Éxito", f"Save guardado!\nBackup: {backup_path}\nGz: {gz_path}")
+            messagebox.showinfo("Éxito", f"Save guardado!\nBackup original: {backup_path}\nEditado: {edited_path}\nComprimido: {gz_path}")
             self.status_label.configure(text="✅ Guardado")
         except Exception as e:
             messagebox.showerror("Error", f"Error al guardar:\n{str(e)}")

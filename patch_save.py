@@ -3,8 +3,15 @@ import json, sys
 
 def patch_save(save_path, task_ids_to_complete):
     """Marca tareas específicas como completadas (State=2)."""
-    with open(save_path, "r", encoding="utf-8") as f:
-        data = json.load(f)
+    import gzip
+    with open(save_path, "rb") as f:
+        magic = f.read(2)
+    if magic == b"\x1f\x8b":
+        with gzip.open(save_path, "rb") as f:
+            data = json.loads(f.read().decode("utf-8"))
+    else:
+        with open(save_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
     
     # Encontrar TokenJournal
     for entry in data.get("m_Entries", []):

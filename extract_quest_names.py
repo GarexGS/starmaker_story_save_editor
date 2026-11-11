@@ -8,7 +8,7 @@ import json
 import sys
 
 # Archivo generado previamente por strings
-STRINGS_PATH = "/tmp/strings_out.txt"
+STRINGS_PATH = "./strings_out.txt"
 
 def extract_quest_names(strings_path):
     """Extrae nombres de misiones relacionadas con personajes principales."""

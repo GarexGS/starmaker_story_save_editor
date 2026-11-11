@@ -124,7 +124,13 @@ KNOWN_QUESTS = {
 }
 
 def load_save(save_path):
-    """Carga el archivo save JSON."""
+    """Carga el archivo save JSON (detecta gzip)."""
+    import gzip
+    with open(save_path, "rb") as f:
+        magic = f.read(2)
+    if magic == b"\x1f\x8b":
+        with gzip.open(save_path, "rb") as f:
+            return json.loads(f.read().decode("utf-8"))
     with open(save_path, "r", encoding="utf-8") as f:
         return json.load(f)
 

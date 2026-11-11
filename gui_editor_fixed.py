@@ -168,7 +168,12 @@ class SaveEditorGUI:
             quest_frame = ctk.CTkFrame(master=self.scroll_frame, fg_color="transparent")
             quest_frame.pack(fill="x", pady=(5, 0))
             
-            ctk.CTkLabel(quest_frame, text=f"📋 {quest_name}", font=ctk.CTkFont(size=14, weight="bold")).pack(anchor="w")
+            quest_label = ctk.CTkLabel(quest_frame, text=f"📋 {quest_name}", font=ctk.CTkFont(size=14, weight="bold"))
+            quest_label.pack(side="left", fill="x", expand=True)
+            quest_state_var = tk.StringVar(value=quest_state_str)
+            quest_combo = ctk.CTkComboBox(quest_frame, values=["Inactiva", "Activa", "Completada"], variable=quest_state_var, width=150)
+            quest_combo.pack(side="right")
+            quest_combo.bind("<<ComboboxSelected>>", lambda e, sv=quest_state_var: self._on_quest_change(quest_name, sv))
             
             # Crear frame para tareas
             task_frame = ctk.CTkFrame(master=quest_frame, fg_color="transparent")
@@ -214,7 +219,13 @@ class SaveEditorGUI:
         state_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
         new_state = state_map.get(var.get(), 1)
         self.status_label.configure(text=f"📝 Tarea {task_id} → {var.get()}")
-    
+
+    def _on_quest_change(self, quest_name, var):
+        """Manejador de cambio de estado de quest."""
+        state_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
+        new_state = state_map.get(var.get(), 1)
+        self.status_label.configure(text=f"📋 Quest {quest_name} → {var.get()}")
+
     def _save_changes(self):
         """Guardar cambios."""
         try:
@@ -224,13 +235,20 @@ class SaveEditorGUI:
                 return
             
             task_combos = {}
+            quest_states = {}
             for quest_name, qdata in self.quest_frames.items():
                 task_vars = qdata["task_vars"]
                 for task_id, var in task_vars.items():
                     task_combos[task_id] = var
+                # Capture quest state from the quest combo
+                quest_frame = qdata["frame"]
+                quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
+                quest_state_str = quest_combo.get()
+                quest_states[quest_name] = quest_state_str
             
             modified = False
             task_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
+            quest_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}
             
             for entry in data.get("m_Entries", []):
                 if "TokenJournal" in entry.get("m_Value", ""):
@@ -254,6 +272,26 @@ class SaveEditorGUI:
                                             modified = True
                                 m_tasks["m_Keys"] = keys
                                 m_tasks["m_Values"] = values
+                                # Update quest state from quest_states
+                                quest_state = quest_states.get(entry["m_Key"])
+                                if quest_state is not None:
+                                    quest_state_int = {"Inactiva": 0, "Activa": 1, "Completada": 2}.get(quest_state, 1)
+                                    # Find the corresponding entry in m_Quests
+                                    inner = json.loads(entry["m_Value"])
+                                    refs = inner.get("references", {}).get("RefIds", [])
+                                    for ref in refs:
+                                        if ref.get("type", {}).get("class") == "TokenJournal":
+                                            tj = ref.get("data", {})
+                                            m_quests = tj.get("m_Quests", {})
+                                            if isinstance(m_quests, dict) and "m_Keys" in m_quests:
+                                                mq_keys = m_quests["m_Keys"]
+                                                mq_vals = m_quests["m_Values"]
+                                                for i, k in enumerate(mq_keys):
+                                                    if k.get("m_String") == entry["m_Key"] and i < len(mq_vals):
+                                                        mq_vals[i]["m_State"] = quest_state_int
+                                                        modified = True
+                                                entry["m_Value"] = json.dumps(inner)
+                                break
                                 entry["m_Value"] = json.dumps(inner)
             
             if not modified:

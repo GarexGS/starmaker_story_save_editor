@@ -242,10 +242,10 @@ class SaveEditorGUI:
                 for task_id, var in task_vars.items():
                     task_combos[task_id] = var
                 # Capture quest state from the quest combo
-                            quest_frame = qdata["frame"]
-                            quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
-                            quest_state_str = quest_combo.get()
-                            quest_states[guid] = quest_state_str
+                quest_frame = qdata["frame"]
+                quest_combo = quest_frame.winfo_children()[1]  # second child is the combo
+                quest_state_str = quest_combo.get()
+                quest_states[qdata["guid"]] = quest_state_str
             
             modified = False
             task_map = {"Inactiva": 0, "Activa": 1, "Completada": 2}

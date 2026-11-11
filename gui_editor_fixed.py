@@ -282,10 +282,22 @@ class SaveEditorGUI:
             import gzip, io
             json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
             with open(gz_path, "wb") as f_out:
-                # Escribir el contenido dentro del .gz con nombre interno "SAVE"
                 info = gzip.GzipFile(filename="SAVE", mode="wb", fileobj=f_out)
                 info.write(json_bytes)
                 info.close()
+            
+            # 3. Sobrescribir el archivo fuente con los cambios (persistencia)
+            #    Detectamos si el original era gzip para preservar formato.
+            with open(self.save_path, "rb") as f:
+                magic = f.read(2)
+            if magic == b"\x1f\x8b":
+                with open(self.save_path, "wb") as f_out:
+                    info = gzip.GzipFile(filename="SAVE", mode="wb", fileobj=f_out)
+                    info.write(json_bytes)
+                    info.close()
+            else:
+                with open(self.save_path, "w", encoding="utf-8") as f:
+                    json.dump(data, f, indent=2, ensure_ascii=False)
             
             messagebox.showinfo("Éxito", f"Save guardado!\nBackup: {backup_path}\nEditado: {edited_path}\nGz (miembro 'SAVE'): {gz_path}")
             self.status_label.configure(text="✅ Guardado")

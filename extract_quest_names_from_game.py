@@ -111,14 +111,14 @@ def find_quest_names_in_strings(strings_set, known_guids):
     return potential_quests
 
 def main():
-    zip_path = "/home/jesusgs/proyects/starmaker/game/Starmaker_1_8E_FullGame.zip"
-    output = "/home/jesusgs/proyects/starmaker/game_strings.txt"
+    zip_path = "./game/Starmaker_1_8E_FullGame.zip"
+    output = "./game_strings.txt"
     
     strings = extract_strings_from_zip(zip_path, output)
     quest_names = find_quest_names_in_strings(strings, SAVE_GUIDS)
     
     # Guardar lista candidata
-    with open("/home/jesusgs/proyects/starmaker/candidate_quest_names.txt", 'w', encoding='utf-8') as f:
+    with open("./candidate_quest_names.txt", 'w', encoding='utf-8') as f:
         for q in quest_names:
             f.write(q + '\n')
     

@@ -51,6 +51,6 @@ if __name__ == "__main__":
     if len(names) > 30:
         print(f"  ... y {len(names) - 30} más")
     
-    output_path = sys.argv[1] if len(sys.argv) > 1 else "/home/jesusgs/proyects/starmaker/quests_mapping.json"
+    output_path = sys.argv[1] if len(sys.argv) > 1 else "./quests_mapping.json"
     save_mapping(names, output_path)
     print(f"\nMapeo guardado en: {output_path}")

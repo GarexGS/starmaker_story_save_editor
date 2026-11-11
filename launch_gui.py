@@ -23,7 +23,7 @@ def main():
         print("Installation complete")
     
     # Run the GUI
-    script_path = "/home/jesusgs/proyects/starmaker/gui_editor_fixed.py"
+    script_path = "./gui_editor_fixed.py"
     print(f"\n🚀 Launching GUI editor from: {script_path}")
     
     try:

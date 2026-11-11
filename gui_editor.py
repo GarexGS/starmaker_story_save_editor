@@ -129,7 +129,7 @@ KNOWN_QUESTS = {
     },
 }
 
-DEFAULT_SAVE = "/home/jesusgs/.hermes/cache/documents/doc_44b0013cfacf_SAVE"
+DEFAULT_SAVE = "./save.json"
 
 
 class QuestTask:

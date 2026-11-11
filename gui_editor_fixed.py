@@ -14,7 +14,7 @@ import gzip
 ctk.set_appearance_mode("System")
 ctk.set_default_color_theme("blue")
 
-DEFAULT_SAVE = "/home/jesusgs/.hermes/cache/documents/doc_44b0013cfacf_SAVE"
+DEFAULT_SAVE = "./save.json"
 
 # Mapeo de quests
 KNOWN_QUESTS = {

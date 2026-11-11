@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import json, sys
 
-path = sys.argv[1] if len(sys.argv) > 1 else "/home/jesusgs/.hermes/cache/documents/doc_44b0013cfacf_SAVE"
+path = sys.argv[1] if len(sys.argv) > 1 else "./save.json"
 with open(path, "r", encoding="utf-8") as f:
     data = json.load(f)
 

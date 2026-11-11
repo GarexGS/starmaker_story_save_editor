@@ -244,7 +244,7 @@ def edit_task(save_path, task_id, new_state, new_value=None):
     else:
         print(f"❌ TaskId {task_id} no encontrado")
 
-DEFAULT_SAVE = "/home/jesusgs/.hermes/cache/documents/doc_44b0013cfacf_SAVE"
+DEFAULT_SAVE = "./save.json"
 
 def main():
     parser = argparse.ArgumentParser(description="Starmaker Story Save Editor")

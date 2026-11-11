@@ -33,14 +33,14 @@ pip install customtkinter
 ### 2. Run the GUI Editor
 
 ```bash
-python3 /home/jesusgs/proyects/starmaker/gui_editor_fixed.py
+python3 ./gui_editor_fixed.py
 ```
 
 ### 3. Or Use the CLI Editor
 
 ```bash
-python3 /home/jesusgs/proyects/starmaker/save_editor.py list
-python3 /home/jesusgs/proyects/starmaker/save_editor.py edit <task_id> <state>
+python3 ./save_editor.py list
+python3 ./save_editor.py edit <task_id> <state>
 ```
 
 ---
@@ -67,10 +67,10 @@ The GUI displays:
 
 ```bash
 # List all quests and tasks
-python3 /home/jesusgs/proyects/starmaker/save_editor.py list
+python3 ./save_editor.py list
 
 # Edit task state (0=Inactive, 1=Active, 2=Completed)
-python3 /home/jesusgs/proyects/starmaker/save_editor.py edit <task_id> <state>
+python3 ./save_editor.py edit <task_id> <state>
 ```
 
 ---
@@ -106,8 +106,8 @@ starmaker/
 
 ## 📌 Important Notes
 
-- The save file is located at: `/home/jesusgs/.hermes/cache/documents/doc_44b0013cfacf_SAVE`
-- The game save directory: `C:\Users\GarexGS\AppData\LocalLow\Arvus Games\Starmaker Story\Saves`
+- The save file is located at: `./save.json` (or `save_original.json` for backup)
+- The game save directory: `C:\Users\%USERPROFILE%\AppData\LocalLow\Arvus Games\Starmaker Story\Saves`
 - Always keep a backup before editing
 - Task states: `0=Inactive`, `1=Active`, `2=Completed`
 - Task IDs are visible in the GUI and CLI tools

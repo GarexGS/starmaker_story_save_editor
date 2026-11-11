@@ -102,8 +102,7 @@ class SaveEditorGUI:
     
     def _load_data(self):
         try:
-            with open(self.save_path, "r", encoding="utf-8") as f:
-                save_data = json.load(f)
+            save_data = self._load_save(self.save_path)
             
             quests, tasks = self._parse_save(save_data)
             self.quests_data = quests
@@ -278,6 +277,18 @@ class SaveEditorGUI:
         pass  # Implementar
     
     def _load_save(self, path):
+        """Cargar save detectando si es gzip o plain JSON."""
+        import gzip
+        
+        # Detectar gzip por los primeros bytes (magic: 1f 8b)
+        with open(path, "rb") as f:
+            magic = f.read(2)
+        
+        if magic == b"\x1f\x8b":
+            with gzip.open(path, "rb") as f:
+                content = f.read()
+                return json.loads(content.decode("utf-8"))
+        # Si no, leer normal
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
 

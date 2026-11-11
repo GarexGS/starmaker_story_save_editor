@@ -261,8 +261,8 @@ class SaveEditorGUI:
             with open(self.save_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             
-            # Comprimir a .gz
-            gz_path = self.save_path.replace(".json", ".gz")
+            # Comprimir a .gz solo una vez, usando la ruta original + .gz
+            gz_path = self.save_path + ".gz"
             with open(self.save_path, "rb") as f_in:
                 with gzip.open(gz_path, "wb") as f_out:
                     f_out.write(f_in.read())

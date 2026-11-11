@@ -1,0 +1,5 @@
+*.gz
+game/
+__pycache__/
+*.pyc
+*.pyo

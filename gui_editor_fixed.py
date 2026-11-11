@@ -257,25 +257,30 @@ class SaveEditorGUI:
             backup_path = self.save_path + ".backup"
             shutil.copy2(self.save_path, backup_path)
             
-            # Guardar como archivo .edited.json (no sobrescribir el original del juego)
+            # Preparar el nombre base sin extensión para el .gz del juego
             from pathlib import Path
             p = Path(self.save_path)
-            # Nombre base: quitar extensión si existe (.json, .gz, .GZ)
             if p.suffix:
-                edited_path = str(p.with_suffix("")) + ".edited.json"
+                base_name = str(p.with_suffix(""))  # quita .json/.gz/.GZ
             else:
-                edited_path = str(p) + ".edited.json"
+                base_name = str(p)
             
+            # 1. Guardar versión editada en JSON plano (para inspección)
+            edited_path = base_name + ".edited.json"
             with open(edited_path, "w", encoding="utf-8") as f:
                 json.dump(data, f, indent=2, ensure_ascii=False)
             
-            # Crear versión comprimida .edited.gz
-            gz_path = edited_path.replace(".json", ".gz")
-            with open(edited_path, "rb") as f_in:
-                with gzip.open(gz_path, "wb") as f_out:
-                    f_out.write(f_in.read())
+            # 2. Crear SAVE.gz con un miembro interno llamado "SAVE" (sin extensión)
+            gz_path = base_name + ".gz"
+            import gzip, io
+            json_bytes = json.dumps(data, indent=2, ensure_ascii=False).encode("utf-8")
+            with open(gz_path, "wb") as f_out:
+                # Escribir el contenido dentro del .gz con nombre interno "SAVE"
+                info = gzip.GzipFile(filename="SAVE", mode="wb", fileobj=f_out)
+                info.write(json_bytes)
+                info.close()
             
-            messagebox.showinfo("Éxito", f"Save guardado!\nBackup original: {backup_path}\nEditado: {edited_path}\nComprimido: {gz_path}")
+            messagebox.showinfo("Éxito", f"Save guardado!\nBackup: {backup_path}\nEditado: {edited_path}\nGz (miembro 'SAVE'): {gz_path}")
             self.status_label.configure(text="✅ Guardado")
         except Exception as e:
             messagebox.showerror("Error", f"Error al guardar:\n{str(e)}")

@@ -1,7 +1,12 @@
 {
-  "known": {},
+  "known": {
+    "c6215ae8-d47d-410e-8590-3aadd1cc5e20": "Bishop (Mario)"
+  },
   "tasks": {
-    "-989935106": "Task_-989935106",
+    "1315981684": "Visit Mario",
+    "-989935106": "Visit Mario",
+    "1410719678": "Corrupt Emma",
+    "1070760953": "Visit the sauna every week",
     "-1675646997": "Task_-1675646997",
     "1813187919": "Task_1813187919",
     "-1625034000": "Task_-1625034000",
@@ -17,9 +22,6 @@
     "612240961": "Task_612240961",
     "889406522": "Task_889406522",
     "-1759660069": "Task_-1759660069",
-    "1315981684": "Task_1315981684",
-    "1070760953": "Task_1070760953",
-    "1410719678": "Task_1410719678",
     "351069880": "Task_351069880",
     "1070060591": "Task_1070060591",
     "-920827797": "Task_-920827797",
@@ -142,5 +144,6 @@
     "c2cfbaab-c5bd-4bac-883b-301edaa44075",
     "9a3d8fdb-417e-4ee6-94a4-52743dfe4cd6",
     "eaeeb2f0-db4e-4e93-b9ef-39a228878dfd"
-  ]
+  ],
+  "_comment": "Mapeo de tareas con nombres de resources.assets. Solo 4 de 105 tasks tienen nombres reales conocidos. Las restantes muestran Task_<id> como fallback."
 }

@@ -187,16 +187,16 @@ class EnhancedSaveEditor:
         self.search_var = ctk.StringVar()
         self.search_entry = ctk.CTkEntry(search_frame, textvariable=self.search_var, width=400)
         self.search_entry.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
-        self.search_var.trace_add("write", self._filter_all_variables)
-        
+        self.search_var.trace("write", self._on_search_change)
+
         ctk.CTkLabel(search_frame, text="Tipo:").grid(row=0, column=2, padx=5, pady=5)
         self.filter_type_var = ctk.StringVar(value="Todos")
         self.filter_type_combo = ctk.CTkComboBox(
-            search_frame, 
+            search_frame,
             values=["Todos", "ValueNumber", "ValueBool", "ValueString", "NameVariable"],
             variable=self.filter_type_var,
             width=120,
-            command=self._filter_all_variables
+            command=self._on_filter_change
         )
         self.filter_type_combo.grid(row=0, column=3, padx=5, pady=5)
 
@@ -204,6 +204,26 @@ class EnhancedSaveEditor:
         self.all_vars_scroll = ctk.CTkScrollableFrame(tab, orientation="vertical")
         self.all_vars_scroll.pack(fill="both", expand=True, padx=5, pady=5)
         self.all_vars_scroll.grid_columnconfigure(0, weight=1)
+
+    def _on_search_change(self, var_name, index, mode):
+        """Debounced search handler."""
+        import time
+        current_time = time.time()
+        if not hasattr(self, '_last_search_time'):
+            self._last_search_time = 0
+        if current_time - self._last_search_time > 300:
+            self._last_search_time = current_time
+            self._filter_all_variables()
+
+    def _on_filter_change(self, event=None):
+        """Filter change handler with debouncing."""
+        import time
+        current_time = time.time()
+        if not hasattr(self, '_last_filter_time'):
+            self._last_filter_time = 0
+        if current_time - self._last_filter_time > 300:
+            self._last_filter_time = current_time
+            self._filter_all_variables()
 
     def _create_actions_panel(self):
         """Panel inferior con botones de acción."""
@@ -385,7 +405,11 @@ class EnhancedSaveEditor:
     # ============================================================
 
     def _populate_quests_tab(self):
-        """Poblar pestaña de quests."""
+        """Poblar pestaña de quests con caché para evitar destrucción completa."""
+        current_quests = [(q["guid"], q["state"], q.get("tracking", False)) for q in self.quests_data]
+        if current_quests == getattr(self, '_last_quests_data', None):
+            return  # Sin cambios, no reconstruir
+
         # Limpiar
         for widget in self.quests_scroll.winfo_children():
             widget.destroy()
@@ -449,31 +473,51 @@ class EnhancedSaveEditor:
                 "guid": guid
             }
 
+        # Guardar estado para caché
+        self._last_quests_data = current_quests
+
     def _populate_category_tabs(self):
-        """Poblar pestañas de categorías."""
-        for category_name, var_names in VARIABLE_CATEGORIES.items():
-            if category_name not in self.section_frames:
-                continue
-            
-            frame = self.section_frames[category_name]
-            # Limpiar
-            for widget in frame.winfo_children():
-                widget.destroy()
+            """Poblar pestañas de categorías con caching para evitar recreación completa."""
+            import time
 
-            # Filtrar variables que existen en el save
-            found_vars = []
-            for name in var_names:
-                if name in self.global_variables:
-                    found_vars.append((name, self.global_variables[name]))
+            current_time = time.time()
+            if not hasattr(self, '_last_category_update'):
+                self._last_category_update = 0
+                self._last_category_vars = {}
 
-            if not found_vars:
-                ctk.CTkLabel(frame, text=f"⚠️ No se encontraron variables para '{category_name}'", 
-                           text_color="gray").pack(pady=20)
-                continue
+            for category_name, var_names in VARIABLE_CATEGORIES.items():
+                if category_name not in self.section_frames:
+                    continue
 
-            # Crear widgets para cada variable
-            for name, var_info in found_vars:
-                self._create_variable_widget(frame, name, var_info, category_name)
+                frame = self.section_frames[category_name]
+
+                # Filtrar variables que existen en el save
+                found_vars = []
+                for name in var_names:
+                    if name in self.global_variables:
+                        found_vars.append((name, self.global_variables[name]))
+
+                # Si no hay cambios en esta categoría y no ha pasado tiempo suficiente, saltar
+                cached_vars = self._last_category_vars.get(category_name)
+                if (cached_vars == found_vars and current_time - self._last_category_update < 5):
+                    continue
+
+                if not found_vars:
+                    ctk.CTkLabel(frame, text=f"⚠️ No se encontraron variables para '{category_name}'",
+                               text_color="gray").pack(pady=20)
+                    continue
+
+                # Limpiar
+                for widget in frame.winfo_children():
+                    widget.destroy()
+
+                # Crear widgets para cada variable
+                for name, var_info in found_vars:
+                    self._create_variable_widget(frame, name, var_info, category_name)
+
+                # Guardar estado para caché
+                self._last_category_vars[category_name] = found_vars
+                self._last_category_update = current_time
 
     def _create_variable_widget(self, parent, name, var_info, category):
         """Crear widget para una variable individual."""

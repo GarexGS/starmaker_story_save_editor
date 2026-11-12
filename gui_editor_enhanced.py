@@ -278,15 +278,20 @@ class EnhancedSaveEditor:
     def _load_save(self):
         """Cargar y parsear el archivo save."""
         try:
+            print(f"[DEBUG] Loading save from: {self.save_path}")
             self.save_data = self._load_save_file(self.save_path)
             if not self.save_data:
                 raise ValueError("No se pudo cargar el save")
 
             # Parsear todas las secciones
+            print(f"[DEBUG] Parsing TokenJournal...")
             self._parse_token_journal()
+            print(f"[DEBUG] Parsed {len(self.quests_data)} quests, {len(self.tasks_data)} tasks")
             self._parse_global_variables()
+            print(f"[DEBUG] Parsed {len(self.global_variables)} global variables")
 
             # Poblar UI
+            print(f"[DEBUG] Populating UI tabs...")
             self._populate_quests_tab()
             self._populate_category_tabs()
             self._populate_all_variables_tab()
@@ -301,8 +306,11 @@ class EnhancedSaveEditor:
             self.status_label.configure(text="✅ Datos cargados exitosamente")
 
         except Exception as e:
-            messagebox.showerror("Error", f"Error al cargar save:\n{str(e)}")
-            self.status_label.configure(text=f"❌ Error: {str(e)[:80]}")
+            print(f"[ERROR] Exception in _load_save: {type(e).__name__}: {e}")
+            import traceback
+            print(f"[TRACEBACK]\n{traceback.format_exc()}")
+            messagebox.showerror("Error", f"Error al cargar save:\n{type(e).__name__}: {e}\n\nSee terminal for details.")
+            self.status_label.configure(text=f"❌ Error: {type(e).__name__}")
 
     def _load_save_file(self, path):
         """Cargar archivo detectando si es gzip o JSON plano."""

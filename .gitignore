@@ -1,0 +1,51 @@
+# ── AssetRipper build artifacts (source kept) ──
+AssetRipperExtractor/bin/
+AssetRipperExtractor/obj/
+AssetRipperExtractor/libs/
+AssetRipperExtractor/**/*.dll
+AssetRipperExtractor/**/*.pdb
+AssetRipperExtractor/**/*.json
+AssetRipperExtractor/**/*.cache
+
+# ── AssetRipper extracted assets ──
+extracted_assets/
+
+# ── Save & backups ──
+*.backup
+*.edited.json
+*.gz
+game
+
+# ── Python ──
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ── IDE / Editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS ──
+.DS_Store
+Thumbs.db

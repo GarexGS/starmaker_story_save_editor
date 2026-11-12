@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AssetRipper.Primitives">
+      <HintPath>libs/AssetRipper.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Assets">
+      <HintPath>libs/AssetRipper.Assets.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Export">
+      <HintPath>libs/AssetRipper.Export.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Text.Html">
+      <HintPath>libs/AssetRipper.Text.Html.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.SourceGenerated">
+      <HintPath>libs/AssetRipper.SourceGenerated.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.TextureDecoder">
+      <HintPath>libs/AssetRipper.TextureDecoder.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpGLTF.Runtime">
+      <HintPath>libs/SharpGLTF.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Conversions.FastPng">
+      <HintPath>libs/AssetRipper.Conversions.FastPng.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Conversions.UnityCrunch">
+      <HintPath>libs/AssetRipper.Conversions.UnityCrunch.dll</HintPath>
+    </Reference>
+    <Reference Include="AssetRipper.Conversions.Crunch">
+      <HintPath>libs/AssetRipper.Conversions.Crunch.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

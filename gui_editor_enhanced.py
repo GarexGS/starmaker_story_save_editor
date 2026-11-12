@@ -859,8 +859,11 @@ class EnhancedSaveEditor:
         quest_tasks = {}
         for task_id, task_info in tasks.items():
             task_hash = task_info.get("quest_hash")
-            if task_hash is not None and task_hash == quest_hash:
-                quest_tasks[task_id] = task_info
+            if task_hash is not None:
+                # Normalizar a unsigned 32-bit (el save puede guardarlo como signed)
+                task_hash_unsigned = task_hash & 0xFFFFFFFF
+                if task_hash_unsigned == quest_hash:
+                    quest_tasks[task_id] = task_info
         return quest_tasks
 
 

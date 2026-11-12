@@ -38,7 +38,7 @@ VARIABLE_CATEGORIES = {
         "celeste-quest-done", "club-enabled", "wardrobe-scene",
         "take-this-wardrobe-key", "wine-gifted", "D-car-key-event"
     ],
-    "📊 Estadísticas/Progreso": [
+    "📊 Estadísticas": [
         "Total-playtime", "DaysPassed", "Day", "Dayname", "year-day", "year-season",
         "Active-Level", "Upcoming-Level", "Lock-Game", "Start-Transfer",
         "church-visits", "park-visits", "movie-night", "photos-taken-today",
@@ -142,7 +142,7 @@ class EnhancedSaveEditor:
             ("💰 Economía", lambda: self._create_category_tab("💰 Economía")),
             ("🚗 Vehículos", lambda: self._create_category_tab("🚗 Vehículos")),
             ("📦 Items/Servicios", lambda: self._create_category_tab("📦 Items/Servicios")),
-            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas/Progreso")),
+            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas")),
             ("🎭 Relaciones", lambda: self._create_category_tab("🎭 Relaciones/Historia")),
             ("⚙️ Configuración", lambda: self._create_category_tab("⚙️ Configuración")),
             ("🔍 Todas las Variables", self._create_all_variables_tab),

@@ -853,17 +853,31 @@ class EnhancedSaveEditor:
         """Obtener los tasks (sub-objetivos) vinculados a una quest por su GUID."""
         if not hasattr(self, 'tasks_data'):
             return {}
-        import zlib
-        quest_hash = zlib.crc32(quest_guid.encode()) & 0xFFFFFFFF
+        # Mono String.GetHashCode implementation (GameCreator)
+        def mono_string_hash(s):
+            hash1 = 5381
+            hash2 = 5381
+            i = 0
+            n = len(s)
+            while i < n:
+                c = ord(s[i])
+                hash1 = (((hash1 << 5) + hash1) & 0xFFFFFFFF) ^ c
+                if i + 1 >= n:
+                    break
+                c2 = ord(s[i + 1])
+                hash2 = (((hash2 << 5) + hash2) & 0xFFFFFFFF) ^ c2
+                i += 2
+            result = (hash1 + (hash2 * 1566083941)) & 0xFFFFFFFF
+            if result >= 0x80000000:
+                result -= 0x100000000
+            return result
+        quest_hash = mono_string_hash(quest_guid)
         tasks = self.tasks_data
         quest_tasks = {}
         for task_id, task_info in tasks.items():
             task_hash = task_info.get("quest_hash")
-            if task_hash is not None:
-                # Normalizar a unsigned 32-bit (el save puede guardarlo como signed)
-                task_hash_unsigned = task_hash & 0xFFFFFFFF
-                if task_hash_unsigned == quest_hash:
-                    quest_tasks[task_id] = task_info
+            if task_hash is not None and task_hash == quest_hash:
+                quest_tasks[task_id] = task_info
         return quest_tasks
 
 

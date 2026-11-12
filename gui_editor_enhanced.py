@@ -458,7 +458,7 @@ class EnhancedSaveEditor:
         for q in self.quests_data:
             guid = q["guid"]
             known = known_quests.get(guid, {"name": f"Quest {guid[:8]}..."})
-            quest_name = known["name"]
+            quest_name = known["name"] if isinstance(known, dict) else known
             quest_state = q["state"]
             tracking = q.get("tracking", False)
             

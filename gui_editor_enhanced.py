@@ -44,7 +44,7 @@ VARIABLE_CATEGORIES = {
         "church-visits", "park-visits", "movie-night", "photos-taken-today",
         "photos-taken-alltime", "Follower", "Subscriber"
     ],
-    "🎭 Relaciones/Historia": [
+    "🎭 Relaciones": [
         "happy-together", "anna-saved", "Rich", "Celebrity", "anna-liz-done",
         "ghost-girl", "android", "save-tristan", "collection",
         "ken-swimming", "matchmaker", "master", "heroic",

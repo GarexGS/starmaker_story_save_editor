@@ -374,18 +374,31 @@ class EnhancedSaveEditor:
                 val = entry.get("m_Value", "")
                 inner = json.loads(val)
                 refs = inner.get("references", {}).get("RefIds", [])
-                
+
                 for ref in refs:
                     rtype = ref.get("type", {}).get("class", "")
                     rid = ref.get("rid")
-                    
+
                     if rtype == "NameVariable":
-                        name = ref.get("data", {}).get("m_Name", {}).get("m_String", "")
-                        value_rid = ref.get("data", {}).get("m_Value", {}).get("rid")
-                        name_vars[name] = {"rid": rid, "value_rid": value_rid}
-                    
+                        data = ref.get("data", {})
+                        # m_Name puede ser dict o string directo
+                        m_name = data.get("m_Name", {})
+                        if isinstance(m_name, dict):
+                            name = m_name.get("m_String", "")
+                        else:
+                            name = str(m_name)
+                        # m_Value puede ser dict o string directo
+                        m_value = data.get("m_Value", {})
+                        if isinstance(m_value, dict):
+                            value_rid = m_value.get("rid")
+                        else:
+                            value_rid = None
+                        if name:
+                            name_vars[name] = {"rid": rid, "value_rid": value_rid}
+
                     elif rtype in ("ValueBool", "ValueNumber", "ValueString", "ValueVector2", "ValueVector3", "ValueGameObject"):
-                        value = ref.get("data", {}).get("m_Value")
+                        data = ref.get("data", {})
+                        value = data.get("m_Value")
                         value_vars[rid] = {"type": rtype, "value": value}
 
                 # Combinar: name -> {type, value, name_rid, value_rid}

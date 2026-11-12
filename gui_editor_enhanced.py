@@ -507,19 +507,46 @@ class EnhancedSaveEditor:
             # Mostrar tasks vinculados (si los hay)
             quest_tasks = self._get_tasks_for_quest(guid)
             if quest_tasks:
+                # Buscar nombres de tasks desde quest_mapping.json
+                known_tasks = known_quests.get("tasks", {}) if isinstance(known_quests, dict) else {}
                 for i, (task_id, task_info) in enumerate(quest_tasks.items(), 1):
                     task_state = task_info.get("state", 0)
                     task_state_names = {0: "Inactiva", 1: "Activa", 2: "Completada", 3: "Fallada"}
                     task_state_str = task_state_names.get(task_state, f"Desconocido({task_state})")
-                    task_id_str = str(task_id)  # Convertir entero a string
-                    task_label = ctk.CTkLabel(
-                        qframe,
-                        text=f"   🔹 Task {task_id_str} — {task_state_str}",
+                    task_id_str = str(task_id)
+                    # Buscar nombre real de la task
+                    task_name = known_tasks.get(task_id_str, task_id_str)
+                    if isinstance(task_name, str) and task_name.isdigit():
+                        task_name = task_id_str
+                    # Frame de task con nombre y estado editable
+                    tframe = ctk.CTkFrame(qframe)
+                    tframe.grid(row=2 + i, column=0, columnspan=3, padx=5, pady=1, sticky="ew")
+                    tframe.grid_columnconfigure(1, weight=1)
+                    # Nombre de la task
+                    t_label = ctk.CTkLabel(
+                        tframe,
+                        text=f"   🔹 {task_name}",
                         font=ctk.CTkFont(size=10),
                         text_color="gray",
                         anchor="w"
                     )
-                    task_label.grid(row=2 + i, column=0, columnspan=3, padx=10, pady=(2, 0), sticky="w")
+                    t_label.grid(row=0, column=0, padx=5, pady=2, sticky="w")
+                    # ComboBox de estado editable
+                    t_state_var = ctk.StringVar(value=task_state_str)
+                    t_state_combo = ctk.CTkComboBox(
+                        tframe,
+                        values=["Inactiva", "Activa", "Completada", "Fallada"],
+                        variable=t_state_var,
+                        width=110,
+                        command=lambda v, tid=task_id: self._on_task_state_change(tid, v)
+                    )
+                    t_state_combo.grid(row=0, column=1, padx=5, pady=2, sticky="e")
+                    # Guardar referencia para guardar después
+                    self.section_widgets[f"task_{task_id}"] = {
+                        "state_var": t_state_var,
+                        "task_id": task_id,
+                        "quest_guid": guid
+                    }
 
             # Guardar referencias para guardar después
             self.section_widgets[f"quest_{guid}"] = {
@@ -666,6 +693,10 @@ class EnhancedSaveEditor:
         """Cambio de tracking de quest."""
         self.status_label.configure(text=f"📍 Quest {guid[:8]}... tracking={'on' if new_tracking else 'off'}")
 
+    def _on_task_state_change(self, task_id, new_state_str):
+        """Cambio de estado de task."""
+        self.status_label.configure(text=f"🔹 Task {task_id} → {new_state_str}")
+
     # ============================================================
     # GUARDAR CAMBIOS
     # ============================================================
@@ -685,7 +716,7 @@ class EnhancedSaveEditor:
                 if ref.get("type", {}).get("class") == "TokenJournal":
                     tj = ref.get("data", {})
                     
-                    # m_Quests
+                    # m_Quests - guardar cambios de quests
                     m_quests = tj.get("m_Quests", {})
                     if isinstance(m_quests, dict) and "m_Keys" in m_quests:
                         for i, k in enumerate(m_quests["m_Keys"]):
@@ -705,7 +736,20 @@ class EnhancedSaveEditor:
                                         m_quests["m_Values"][i]["m_IsTracking"] = new_tracking
                                         modified = True
                     
-                    # m_Tasks - por ahora solo quests, se puede extender
+                    # m_Tasks - guardar cambios de estados de tasks
+                    m_tasks = tj.get("m_Tasks", {})
+                    if isinstance(m_tasks, dict) and "m_Keys" in m_tasks:
+                        for k, v in zip(m_tasks["m_Keys"], m_tasks["m_Values"]):
+                            task_id = k.get("m_TaskId")
+                            if task_id is not None:
+                                widget_key = f"task_{task_id}"
+                                if widget_key in self.section_widgets:
+                                    w = self.section_widgets[widget_key]
+                                    state_map = {"Inactiva": 0, "Activa": 1, "Completada": 2, "Fallada": 3}
+                                    new_state = state_map.get(w["state_var"].get(), 0)
+                                    if v.get("m_State") != new_state:
+                                        v["m_State"] = new_state
+                                        modified = True
                     break
 
             # 2. Guardar cambios de VARIABLES GLOBALES
@@ -845,7 +889,14 @@ class EnhancedSaveEditor:
             if os.path.exists(path):
                 try:
                     with open(path, "r", encoding="utf-8") as f:
-                        return json.load(f)
+                        data = json.load(f)
+                        # Buscar tanto known como tasks
+                        if isinstance(data, dict):
+                            if "known" in data and isinstance(data["known"], dict):
+                                data["_known_quests"] = data["known"]
+                            if "tasks" in data and isinstance(data["tasks"], dict):
+                                data["_known_tasks"] = data["tasks"]
+                            return data
                 except Exception:
                     continue
         return {}

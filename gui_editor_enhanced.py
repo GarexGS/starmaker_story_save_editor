@@ -381,6 +381,9 @@ class EnhancedSaveEditor:
 
                     if rtype == "NameVariable":
                         data = ref.get("data", {})
+                        # data puede ser dict o string JSON
+                        if isinstance(data, str):
+                            data = json.loads(data)
                         # m_Name puede ser dict o string directo
                         m_name = data.get("m_Name", {})
                         if isinstance(m_name, dict):
@@ -398,6 +401,8 @@ class EnhancedSaveEditor:
 
                     elif rtype in ("ValueBool", "ValueNumber", "ValueString", "ValueVector2", "ValueVector3", "ValueGameObject"):
                         data = ref.get("data", {})
+                        if isinstance(data, str):
+                            data = json.loads(data)
                         value = data.get("m_Value")
                         value_vars[rid] = {"type": rtype, "value": value}
 

@@ -466,6 +466,22 @@ class EnhancedSaveEditor:
             guid_label = ctk.CTkLabel(qframe, text=guid[:8] + "...", font=ctk.CTkFont(size=9), text_color="gray")
             guid_label.grid(row=1, column=0, columnspan=3, padx=10, pady=(0, 5), sticky="w")
 
+            # Mostrar tasks vinculados (si los hay)
+            quest_tasks = self._get_tasks_for_quest(guid)
+            if quest_tasks:
+                for i, (task_id, task_info) in enumerate(quest_tasks.items(), 1):
+                    task_state = task_info.get("state", 0)
+                    task_state_names = {0: "Inactiva", 1: "Activa", 2: "Completada", 3: "Fallada"}
+                    task_state_str = task_state_names.get(task_state, f"Desconocido({task_state})")
+                    task_label = ctk.CTkLabel(
+                        qframe,
+                        text=f"   🔹 Task {task_id[:8]}... — {task_state_str}",
+                        font=ctk.CTkFont(size=10),
+                        text_color="gray",
+                        anchor="w"
+                    )
+                    task_label.grid(row=2 + i, column=0, columnspan=3, padx=10, pady=(2, 0), sticky="w")
+
             # Guardar referencias para guardar después
             self.section_widgets[f"quest_{guid}"] = {
                 "state_var": state_var,
@@ -766,12 +782,42 @@ class EnhancedSaveEditor:
     # ============================================================
 
     def _load_known_quests(self):
-        """Cargar nombres de quests conocidos desde quest_mapping_final.json."""
-        try:
-            with open("/home/jesusgs/proyects/starmaker/quest_mapping_final.json", "r") as f:
-                return json.load(f)
-        except:
+        """Cargar nombres de quests conocidos desde quest_mapping_final.json.
+        Busca en múltiples rutas: Linux, Windows y rel. al exe."""
+        import os
+        possible_paths = [
+            "/home/jesusgs/proyects/starmaker/quest_mapping_final.json",
+            "/home/jesusgs/proyects/starmaker/quest_mapping.json",
+            "quest_mapping_final.json",
+            "quest_mapping.json",
+        ]
+        # Si estamos en Windows, añadir paths comunes
+        if os.name == "nt":  # Windows
+            possible_paths.extend([
+                os.path.expanduser("~/quest_mapping_final.json"),
+                "C:/Starmaker/quest_mapping_final.json",
+                os.path.join(os.getcwd(), "quest_mapping_final.json"),
+            ])
+        for path in possible_paths:
+            if os.path.exists(path):
+                try:
+                    with open(path, "r", encoding="utf-8") as f:
+                        return json.load(f)
+                except Exception:
+                    continue
+        return {}
+
+    def _get_tasks_for_quest(self, quest_guid):
+        """Obtener los tasks (sub-objetivos) vinculados a una quest por su GUID."""
+        if not hasattr(self, 'tasks_data'):
             return {}
+        tasks = self.tasks_data
+        quest_tasks = {}
+        for task_id, task_info in tasks.items():
+            quest_hash = task_info.get("quest_hash")
+            if quest_hash == quest_guid:
+                quest_tasks[task_id] = task_info
+        return quest_tasks
 
 
 def main():

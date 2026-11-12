@@ -786,8 +786,8 @@ class EnhancedSaveEditor:
         Busca en múltiples rutas: Linux, Windows y rel. al exe."""
         import os
         possible_paths = [
-            "/home/jesusgs/proyects/starmaker/quest_mapping_final.json",
-            "/home/jesusgs/proyects/starmaker/quest_mapping.json",
+            "/home/jesusgs/proyectos/starmaker/quest_mapping_final.json",
+            "/home/jesusgs/proyectos/starmaker/quest_mapping.json",
             "quest_mapping_final.json",
             "quest_mapping.json",
         ]
@@ -798,6 +798,10 @@ class EnhancedSaveEditor:
                 "C:/Starmaker/quest_mapping_final.json",
                 os.path.join(os.getcwd(), "quest_mapping_final.json"),
             ])
+        # Añadir path del directorio del script
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        possible_paths.append(os.path.join(script_dir, "quest_mapping_final.json"))
+        possible_paths.append(os.path.join(script_dir, "quest_mapping.json"))
         for path in possible_paths:
             if os.path.exists(path):
                 try:

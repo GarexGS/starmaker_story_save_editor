@@ -327,15 +327,25 @@ class EnhancedSaveEditor:
             val = entry.get("m_Value", "")
             if "TokenJournal" in val:
                 self.token_journal_entry = entry
-                inner = json.loads(val)
+                try:
+                    inner = json.loads(val)
+                except json.JSONDecodeError as e:
+                    print(f"[ERROR] JSON decode error in TokenJournal: {e}")
+                    print(f"[DEBUG] val[:200] = {val[:200]}")
+                    raise
                 refs = inner.get("references", {}).get("RefIds", [])
                 
                 for ref in refs:
                     if ref.get("type", {}).get("class") == "TokenJournal":
                         tj = ref.get("data", {})
+                        # tj puede ser string JSON
+                        if isinstance(tj, str):
+                            tj = json.loads(tj)
                         
                         # Parsear m_Quests
                         m_quests = tj.get("m_Quests", {})
+                        if isinstance(m_quests, str):
+                            m_quests = json.loads(m_quests)
                         if isinstance(m_quests, dict) and "m_Keys" in m_quests:
                             for i, k in enumerate(m_quests["m_Keys"]):
                                 guid = k.get("m_String", "")
@@ -349,6 +359,8 @@ class EnhancedSaveEditor:
                         
                         # Parsear m_Tasks
                         m_tasks = tj.get("m_Tasks", {})
+                        if isinstance(m_tasks, str):
+                            m_tasks = json.loads(m_tasks)
                         if isinstance(m_tasks, dict):
                             keys = m_tasks.get("m_Keys", [])
                             values = m_tasks.get("m_Values", [])

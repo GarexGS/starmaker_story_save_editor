@@ -507,8 +507,8 @@ class EnhancedSaveEditor:
             # Mostrar tasks vinculados (si los hay)
             quest_tasks = self._get_tasks_for_quest(guid)
             if quest_tasks:
-                # Buscar nombres de tasks desde quest_mapping.json
-                known_tasks = known_quests.get("tasks", {}) if isinstance(known_quests, dict) else {}
+                # Buscar nombres de tasks desde quest_mapping.json (archivo dedicado)
+                known_tasks = self._load_known_tasks()
                 for i, (task_id, task_info) in enumerate(quest_tasks.items(), 1):
                     task_state = task_info.get("state", 0)
                     task_state_names = {0: "Inactiva", 1: "Activa", 2: "Completada", 3: "Fallada"}
@@ -899,6 +899,38 @@ class EnhancedSaveEditor:
                             return data
                 except Exception:
                     continue
+        return {}
+
+    def _load_known_tasks(self):
+        """Cargar nombres de tasks conocidos desde quest_mapping.json.
+        Devuelve dict {task_id_str: task_name}.
+        Busca en múltiples rutas (Linux, Windows, script dir)."""
+        import os
+        possible_paths = [
+            "/home/jesusgs/proyectos/starmaker/quest_mapping.json",
+            "quest_mapping.json",
+        ]
+        if os.name == "nt":
+            possible_paths.extend([
+                os.path.expanduser("~/quest_mapping.json"),
+                os.path.join(os.getcwd(), "quest_mapping.json"),
+            ])
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        possible_paths.append(os.path.join(script_dir, "quest_mapping.json"))
+
+        for path in possible_paths:
+            if not os.path.exists(path):
+                continue
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                if isinstance(data, dict):
+                    tasks = data.get("tasks", {})
+                    if isinstance(tasks, dict):
+                        # Normalizar claves a string
+                        return {str(k): v for k, v in tasks.items()}
+            except Exception:
+                continue
         return {}
 
     def _get_tasks_for_quest(self, quest_guid):

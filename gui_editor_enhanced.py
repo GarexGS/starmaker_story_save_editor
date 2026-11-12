@@ -187,7 +187,7 @@ class EnhancedSaveEditor:
         self.search_var = ctk.StringVar()
         self.search_entry = ctk.CTkEntry(search_frame, textvariable=self.search_var, width=400)
         self.search_entry.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
-        self.search_var.trace("write", self._on_search_change)
+        self.search_var.trace_add("write", self._on_search_change)
 
         ctk.CTkLabel(search_frame, text="Tipo:").grid(row=0, column=2, padx=5, pady=5)
         self.filter_type_var = ctk.StringVar(value="Todos")

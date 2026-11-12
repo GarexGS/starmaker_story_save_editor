@@ -511,9 +511,10 @@ class EnhancedSaveEditor:
                     task_state = task_info.get("state", 0)
                     task_state_names = {0: "Inactiva", 1: "Activa", 2: "Completada", 3: "Fallada"}
                     task_state_str = task_state_names.get(task_state, f"Desconocido({task_state})")
+                    task_id_str = str(task_id)  # Convertir entero a string
                     task_label = ctk.CTkLabel(
                         qframe,
-                        text=f"   🔹 Task {task_id[:8]}... — {task_state_str}",
+                        text=f"   🔹 Task {task_id_str} — {task_state_str}",
                         font=ctk.CTkFont(size=10),
                         text_color="gray",
                         anchor="w"

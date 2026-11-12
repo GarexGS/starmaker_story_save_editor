@@ -853,11 +853,13 @@ class EnhancedSaveEditor:
         """Obtener los tasks (sub-objetivos) vinculados a una quest por su GUID."""
         if not hasattr(self, 'tasks_data'):
             return {}
+        import zlib
+        quest_hash = zlib.crc32(quest_guid.encode()) & 0xFFFFFFFF
         tasks = self.tasks_data
         quest_tasks = {}
         for task_id, task_info in tasks.items():
-            quest_hash = task_info.get("quest_hash")
-            if quest_hash == quest_guid:
+            task_hash = task_info.get("quest_hash")
+            if task_hash is not None and task_hash == quest_hash:
                 quest_tasks[task_id] = task_info
         return quest_tasks
 

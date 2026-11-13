@@ -159,9 +159,18 @@ class EnhancedSaveEditor:
         self._tab_factories = dict(tabs)
         self._built_tabs = set()
         
-        # Conectar evento de cambio de pestaña
-        self.notebook.bind("<<NotebookTabChanged>>", self._on_tab_changed)
+        # Iniciar polling para detectar cambio de pestaña (CustomTkinter no soporta bind)
+        self._last_tab = self.notebook.get()
+        self._poll_tab_changes()
 
+    def _poll_tab_changes(self):
+        """Chequear periódicamente si la pestaña cambió (CustomTkinter no soporta .bind)."""
+        current = self.notebook.get()
+        if current != self._last_tab:
+            self._last_tab = current
+            self._on_tab_changed()
+        self._poll_timer = self.root.after(100, self._poll_tab_changes)
+        
     def _on_tab_changed(self, event=None):
         """Cuando cambia la pestaña, construir y poblar su contenido (lazy)."""
         try:

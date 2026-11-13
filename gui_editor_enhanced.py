@@ -6,6 +6,7 @@ Permite editar: Quests, Dinero, Autos, Items/Servicios, Variables Generales
 import customtkinter as ctk
 import json
 import os
+import time
 import tkinter as tk
 from tkinter import messagebox, filedialog
 import shutil
@@ -136,14 +137,14 @@ class EnhancedSaveEditor:
         self.notebook = ctk.CTkTabview(master=self.main_frame)
         self.notebook.pack(fill="both", expand=True, pady=(0, 10))
 
-        # Añadir pestañas
+        # Añadir pestañas (lazy loading - solo marco, contenido se crea al cambiar)
         tabs = [
             ("🎯 Quests", self._create_quests_tab),
             ("💰 Economía", lambda: self._create_category_tab("💰 Economía")),
             ("🚗 Vehículos", lambda: self._create_category_tab("🚗 Vehículos")),
             ("📦 Items/Servicios", lambda: self._create_category_tab("📦 Items/Servicios")),
-            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas")),
-            ("🎭 Relaciones", lambda: self._create_category_tab("🎭 Relaciones")),
+            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas/Progreso")),
+            ("🎭 Relaciones", lambda: self._create_category_tab("🎭 Relaciones/Historia")),
             ("⚙️ Configuración", lambda: self._create_category_tab("⚙️ Configuración")),
             ("🔍 Todas las Variables", self._create_all_variables_tab),
         ]
@@ -152,7 +153,50 @@ class EnhancedSaveEditor:
             tab = self.notebook.add(tab_name)
             tab.grid_columnconfigure(0, weight=1)
             tab.grid_rowconfigure(0, weight=1)
-            creator()
+            # NO llamar creator() aquí - se hará de forma diferida
+        
+        # Guardar factories y estado de construcción diferida
+        self._tab_factories = dict(tabs)
+        self._built_tabs = set()
+        
+        # Conectar evento de cambio de pestaña
+        self.notebook.bind("<<NotebookTabChanged>>", self._on_tab_changed)
+
+    def _on_tab_changed(self, event=None):
+        """Cuando cambia la pestaña, construir y poblar su contenido (lazy)."""
+        try:
+            self._activate_tab(self.notebook.get())
+        except Exception as e:
+            print(f"[ERROR] _on_tab_changed: {type(e).__name__}: {e}")
+
+    def _activate_tab(self, label, force=False):
+        """Construir (una vez) y poblar la pestaña indicada."""
+        if not hasattr(self, '_tab_factories'):
+            return
+        factory = self._tab_factories.get(label)
+        if factory is None:
+            return
+        # Construir el marco de la pestaña solo una vez
+        if label not in self._built_tabs:
+            try:
+                factory()
+                self._built_tabs.add(label)
+            except Exception as e:
+                print(f"[ERROR] Building tab {label}: {type(e).__name__}: {e}")
+                return
+        # Poblar con datos si hay save cargado
+        if not getattr(self, 'save_data', None):
+            return
+        try:
+            if label == "🎯 Quests":
+                self._populate_quests_tab()
+            elif label == "🔍 Todas las Variables":
+                self._populate_all_variables_tab()
+            else:
+                # Pestaña de categoría
+                self._populate_category(label)
+        except Exception as e:
+            print(f"[ERROR] Populating tab {label}: {type(e).__name__}: {e}")
 
     def _create_quests_tab(self):
         """Pestaña de Quests (existente mejorada)."""
@@ -290,12 +334,6 @@ class EnhancedSaveEditor:
             self._parse_global_variables()
             print(f"[DEBUG] Parsed {len(self.global_variables)} global variables")
 
-            # Poblar UI
-            print(f"[DEBUG] Populating UI tabs...")
-            self._populate_quests_tab()
-            self._populate_category_tabs()
-            self._populate_all_variables_tab()
-
             # Info del archivo
             size = os.path.getsize(self.save_path) / 1024
             self.save_info_label.configure(
@@ -304,6 +342,8 @@ class EnhancedSaveEditor:
                      f"{len(self.global_variables)} variables globales"
             )
             self.status_label.configure(text="✅ Datos cargados exitosamente")
+            # Poblar la pestaña actualmente visible (lazy loading)
+            self._activate_tab(self.notebook.get())
 
         except Exception as e:
             print(f"[ERROR] Exception in _load_save: {type(e).__name__}: {e}")
@@ -514,7 +554,7 @@ class EnhancedSaveEditor:
                     task_state_names = {0: "Inactiva", 1: "Activa", 2: "Completada", 3: "Fallada"}
                     task_state_str = task_state_names.get(task_state, f"Desconocido({task_state})")
                     task_id_str = str(task_id)
-                    # Buscar nombre real de la task
+                    # Buscar nombre real de la task (puede ser el task_id_string)
                     task_name = known_tasks.get(task_id_str, task_id_str)
                     if isinstance(task_name, str) and task_name.isdigit():
                         task_name = task_id_str
@@ -558,48 +598,40 @@ class EnhancedSaveEditor:
         # Guardar estado para caché
         self._last_quests_data = current_quests
 
+    def _populate_category(self, category_name):
+        """Poblar una sola pestaña de categoría con caching."""
+        if category_name not in self.section_frames:
+            return
+        frame = self.section_frames[category_name]
+        if not hasattr(self, '_last_category_update'):
+            self._last_category_update = 0
+            self._last_category_vars = {}
+        current_time = time.time()
+        found_vars = []
+        for name in VARIABLE_CATEGORIES.get(category_name, []):
+            if name in self.global_variables:
+                found_vars.append((name, self.global_variables[name]))
+        cached_vars = self._last_category_vars.get(category_name)
+        if cached_vars == found_vars and current_time - self._last_category_update < 5:
+            return
+        if not found_vars:
+            ctk.CTkLabel(frame, text=f"⚠️ No se encontraron variables para '{category_name}'",
+                         text_color="gray").pack(pady=20)
+            return
+        for widget in frame.winfo_children():
+            widget.destroy()
+        for name, var_info in found_vars:
+            self._create_variable_widget(frame, name, var_info, category_name)
+        self._last_category_vars[category_name] = found_vars
+        self._last_category_update = current_time
+
     def _populate_category_tabs(self):
-            """Poblar pestañas de categorías con caching para evitar recreación completa."""
-            import time
-
-            current_time = time.time()
-            if not hasattr(self, '_last_category_update'):
-                self._last_category_update = 0
-                self._last_category_vars = {}
-
-            for category_name, var_names in VARIABLE_CATEGORIES.items():
-                if category_name not in self.section_frames:
-                    continue
-
-                frame = self.section_frames[category_name]
-
-                # Filtrar variables que existen en el save
-                found_vars = []
-                for name in var_names:
-                    if name in self.global_variables:
-                        found_vars.append((name, self.global_variables[name]))
-
-                # Si no hay cambios en esta categoría y no ha pasado tiempo suficiente, saltar
-                cached_vars = self._last_category_vars.get(category_name)
-                if (cached_vars == found_vars and current_time - self._last_category_update < 5):
-                    continue
-
-                if not found_vars:
-                    ctk.CTkLabel(frame, text=f"⚠️ No se encontraron variables para '{category_name}'",
-                               text_color="gray").pack(pady=20)
-                    continue
-
-                # Limpiar
-                for widget in frame.winfo_children():
-                    widget.destroy()
-
-                # Crear widgets para cada variable
-                for name, var_info in found_vars:
-                    self._create_variable_widget(frame, name, var_info, category_name)
-
-                # Guardar estado para caché
-                self._last_category_vars[category_name] = found_vars
-                self._last_category_update = current_time
+        """Poblar todas las pestañas de categorías (usado tras recargar)."""
+        if not hasattr(self, '_last_category_update'):
+            self._last_category_update = 0
+            self._last_category_vars = {}
+        for category_name in VARIABLE_CATEGORIES.keys():
+            self._populate_category(category_name)
 
     def _create_variable_widget(self, parent, name, var_info, category):
         """Crear widget para una variable individual."""

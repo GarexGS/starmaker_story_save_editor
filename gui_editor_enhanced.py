@@ -158,6 +158,7 @@ class EnhancedSaveEditor:
         # Guardar factories y estado de construcción diferida
         self._tab_factories = dict(tabs)
         self._built_tabs = set()
+        self._populated_tabs = set()
         
         # Iniciar polling para detectar cambio de pestaña (CustomTkinter no soporta bind)
         self._last_tab = self.notebook.get()
@@ -193,8 +194,10 @@ class EnhancedSaveEditor:
             except Exception as e:
                 print(f"[ERROR] Building tab {label}: {type(e).__name__}: {e}")
                 return
-        # Poblar con datos si hay save cargado
+        # Poblar solo la primera vez que se abre la pestaña (evita rehacer cientos de widgets)
         if not getattr(self, 'save_data', None):
+            return
+        if label in self._populated_tabs and not force:
             return
         try:
             if label == "🎯 Quests":
@@ -204,6 +207,7 @@ class EnhancedSaveEditor:
             else:
                 # Pestaña de categoría
                 self._populate_category(label)
+            self._populated_tabs.add(label)
         except Exception as e:
             print(f"[ERROR] Populating tab {label}: {type(e).__name__}: {e}")
 
@@ -264,7 +268,7 @@ class EnhancedSaveEditor:
         current_time = time.time()
         if not hasattr(self, '_last_search_time'):
             self._last_search_time = 0
-        if current_time - self._last_search_time > 300:
+        if current_time - self._last_search_time > 0.3:
             self._last_search_time = current_time
             self._filter_all_variables()
 
@@ -274,7 +278,7 @@ class EnhancedSaveEditor:
         current_time = time.time()
         if not hasattr(self, '_last_filter_time'):
             self._last_filter_time = 0
-        if current_time - self._last_filter_time > 300:
+        if current_time - self._last_filter_time > 0.3:
             self._last_filter_time = current_time
             self._filter_all_variables()
 
@@ -351,8 +355,13 @@ class EnhancedSaveEditor:
                      f"{len(self.global_variables)} variables globales"
             )
             self.status_label.configure(text="✅ Datos cargados exitosamente")
+            # Invalidar contenido ya poblado para forzar repoblado con los nuevos datos
+            self._populated_tabs = set()
+            self._last_category_vars = {}
+            self._last_quests_data = None
+            self._last_all_vars_key = None
             # Poblar la pestaña actualmente visible (lazy loading)
-            self._activate_tab(self.notebook.get())
+            self._activate_tab(self.notebook.get(), force=True)
 
         except Exception as e:
             print(f"[ERROR] Exception in _load_save: {type(e).__name__}: {e}")
@@ -701,6 +710,10 @@ class EnhancedSaveEditor:
         """Filtrar y mostrar variables según búsqueda."""
         search = self.search_var.get().lower()
         filter_type = self.filter_type_var.get()
+        key = (search, filter_type)
+        if key == getattr(self, '_last_all_vars_key', None):
+            return  # mismo filtro, no reconstruir los ~1140 widgets
+        self._last_all_vars_key = key
 
         # Limpiar
         for widget in self.all_vars_scroll.winfo_children():

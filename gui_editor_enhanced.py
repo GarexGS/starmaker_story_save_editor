@@ -143,8 +143,8 @@ class EnhancedSaveEditor:
             ("💰 Economía", lambda: self._create_category_tab("💰 Economía")),
             ("🚗 Vehículos", lambda: self._create_category_tab("🚗 Vehículos")),
             ("📦 Items/Servicios", lambda: self._create_category_tab("📦 Items/Servicios")),
-            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas/Progreso")),
-            ("🎭 Relaciones", lambda: self._create_category_tab("🎭 Relaciones/Historia")),
+            ("📊 Estadísticas", lambda: self._create_category_tab("📊 Estadísticas")),
+            ("🎭 Relaciones", lambda: self._create_category_tab("🎭 Relaciones")),
             ("⚙️ Configuración", lambda: self._create_category_tab("⚙️ Configuración")),
             ("🔍 Todas las Variables", self._create_all_variables_tab),
         ]

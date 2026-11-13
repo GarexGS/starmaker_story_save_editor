@@ -510,13 +510,27 @@ class EnhancedSaveEditor:
         for widget in self.quests_scroll.winfo_children():
             widget.destroy()
 
-        # Mapeo de nombres conocidos (del quest_mapping_final.json)
+        # Mapeo de quests conocidos (del quest_mapping_final.json)
         known_quests = self._load_known_quests()
+        references_quests = self._references_quest_names()
 
         for q in self.quests_data:
             guid = q["guid"]
-            known = known_quests.get(guid, {"name": f"Quest {guid[:8]}..."})
-            quest_name = known["name"] if isinstance(known, dict) else known
+            known = known_quests.get(guid, {"name": None})
+            if isinstance(known, dict):
+                known_name = known.get("name")
+            else:
+                known_name = known
+            # Fallback al nombre del references.json vía task_id
+            if not known_name or known_name.startswith("Quest "):
+                ref_name = None
+                for task_id in self._get_tasks_for_quest(guid).keys():
+                    ref_name = references_quests.get(str(task_id))
+                    if ref_name:
+                        break
+                quest_name = ref_name if ref_name else (known_name or f"Quest {guid[:8]}...")
+            else:
+                quest_name = known_name
             quest_state = q["state"]
             tracking = q.get("tracking", False)
             
@@ -917,6 +931,19 @@ class EnhancedSaveEditor:
     # ============================================================
     # HELPERS
     # ============================================================
+
+    def _references_quest_names(self):
+        """Cargar nombres de quests desde references.json y mapear task_id -> quest_name."""
+        ref_path = Path(__file__).parent / "VanillaQuests" / "references.json"
+        if not ref_path.exists():
+            return {}
+        with open(ref_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        mapping = {}
+        for qname, q in data.get("quests", {}).items():
+            for tid, t in q.get("tasks", {}).items():
+                mapping[str(tid)] = qname
+        return mapping
 
     def _load_known_quests(self):
         """Cargar nombres de quests conocidos desde quest_mapping_final.json.
